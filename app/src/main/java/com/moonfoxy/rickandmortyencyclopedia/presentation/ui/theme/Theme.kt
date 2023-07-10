@@ -1,4 +1,4 @@
-package com.moonfoxy.rickandmortyencyclopedia.ui.theme
+package com.moonfoxy.rickandmortyencyclopedia.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

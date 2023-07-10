@@ -1,4 +1,4 @@
-package com.moonfoxy.rickandmortyencyclopedia.ui.theme
+package com.moonfoxy.rickandmortyencyclopedia.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
