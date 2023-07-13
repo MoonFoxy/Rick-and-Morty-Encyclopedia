@@ -23,7 +23,7 @@ class DataRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCharacterList(page: Int): Flow<Resource<List<Character>>> = flow {
+    override fun getCharacterList(): Flow<Resource<List<Character>>> = flow {
         emit(Resource.Loading())
         checkLocalExpired()
 
@@ -53,7 +53,7 @@ class DataRepositoryImpl @Inject constructor(
         emit(Resource.Success(localRepository.getCharacterList()))
     }
 
-    override suspend fun getCharacter(characterId: Int): Flow<Resource<Character>> = flow {
+    override fun getCharacter(characterId: Int): Flow<Resource<Character>> = flow {
         emit(Resource.Loading())
 
 
