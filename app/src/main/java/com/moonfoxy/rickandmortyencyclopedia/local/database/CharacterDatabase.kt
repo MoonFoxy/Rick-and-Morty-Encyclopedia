@@ -4,19 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.moonfoxy.rickandmortyencyclopedia.local.converter.CharacterEntityConverter
 import com.moonfoxy.rickandmortyencyclopedia.local.dao.CharacterDao
 import com.moonfoxy.rickandmortyencyclopedia.local.models.CharacterEntity
 import com.moonfoxy.rickandmortyencyclopedia.local.models.CharacterLocationEntity
 import com.moonfoxy.rickandmortyencyclopedia.local.models.CharacterOriginEntity
 import com.moonfoxy.rickandmortyencyclopedia.local.util.LocalConstants.DB_NAME
-import javax.inject.Inject
 
 @Database(
     entities = [CharacterEntity::class, CharacterLocationEntity::class, CharacterOriginEntity::class],
     version = CharactersDatabase.VERSION,
     exportSchema = false
 )
-abstract class CharactersDatabase @Inject constructor() : RoomDatabase() {
+@TypeConverters(CharacterEntityConverter::class)
+abstract class CharactersDatabase : RoomDatabase() {
 
     abstract fun getCharacterDao(): CharacterDao
 
