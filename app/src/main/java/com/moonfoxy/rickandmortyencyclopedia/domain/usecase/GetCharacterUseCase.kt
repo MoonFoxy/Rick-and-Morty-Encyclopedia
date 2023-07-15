@@ -4,8 +4,9 @@ import com.moonfoxy.rickandmortyencyclopedia.data.models.Character
 import com.moonfoxy.rickandmortyencyclopedia.domain.repository.DataRepository
 import com.moonfoxy.rickandmortyencyclopedia.remote.Resource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GetCharacterUseCase constructor(
+class GetCharacterUseCase @Inject constructor(
     private val dataRepository: DataRepository
 ) {
     operator fun invoke(characterId: Int): Flow<Resource<Character>> {
