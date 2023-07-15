@@ -1,6 +1,6 @@
 package com.moonfoxy.rickandmortyencyclopedia.local.repository
 
-import com.moonfoxy.rickandmortyencyclopedia.BuildConfig.CACHE_EXPIRATION_TIME
+import com.moonfoxy.rickandmortyencyclopedia.BuildConfig
 import com.moonfoxy.rickandmortyencyclopedia.data.models.Character
 import com.moonfoxy.rickandmortyencyclopedia.domain.repository.LocalRepository
 import com.moonfoxy.rickandmortyencyclopedia.local.dao.CharacterDao
@@ -14,21 +14,21 @@ class LocalRepositoryImpl @Inject constructor(
     private val preferencesHelper: SharedPreferencesHelper
 ) : LocalRepository {
 
-    override suspend fun getCharacterList(): List<Character> {
+    override fun getCharacterList(): List<Character> {
         return characterDao.getCharacterList().map { cacheCharacter ->
             characterEntityMapper.mapFromModel(cacheCharacter)
         }
     }
 
-    override suspend fun getCharacter(characterId: Int): Character {
+    override fun getCharacter(characterId: Int): Character {
         return characterEntityMapper.mapFromModel(characterDao.getCharacter(characterId))
     }
 
-    override suspend fun getCharacterCount(): Int {
+    override fun getCharacterCount(): Int {
         return characterDao.getCharacterList().count()
     }
 
-    override suspend fun saveCharacterList(listCharacters: List<Character>) {
+    override fun saveCharacterList(listCharacters: List<Character>) {
         characterDao.insertCharacterList(
             listCharacters.map {
                 characterEntityMapper.mapToModel(it)
@@ -36,26 +36,26 @@ class LocalRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun saveCharacter(character: Character) {
+    override fun saveCharacter(character: Character) {
         return characterDao.insertCharacter(characterEntityMapper.mapToModel(character))
     }
 
-    override suspend fun deleteAllCharacterList() {
+    override fun deleteAllCharacterList() {
         characterDao.deleteAll()
     }
 
-    override suspend fun isNotEmpty(): Boolean {
+    override fun isNotEmpty(): Boolean {
         return characterDao.getCharacterList().isNotEmpty()
     }
 
-    override suspend fun setLastCacheTime(lastCache: Long) {
+    override fun setLastCacheTime(lastCache: Long) {
         preferencesHelper.lastCacheTime = lastCache
     }
 
-    override suspend fun isExpired(): Boolean {
+    override fun isExpired(): Boolean {
         val currentTime = System.currentTimeMillis()
         val lastUpdateTime = getLastCacheUpdateTimeMillis()
-        return currentTime - lastUpdateTime > CACHE_EXPIRATION_TIME
+        return currentTime - lastUpdateTime > BuildConfig.CACHE_EXPIRATION_TIME
     }
 
     /**

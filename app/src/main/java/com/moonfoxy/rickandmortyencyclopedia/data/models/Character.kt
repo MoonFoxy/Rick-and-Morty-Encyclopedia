@@ -10,7 +10,7 @@ data class Character(
     val origin: CharacterOrigin,
     val location: CharacterLocation,
     val image: String,
-    val episode: ArrayList<String> = arrayListOf(),
+    val episode: List<String> = emptyList(),
     val url: String,
     val created: String
 )

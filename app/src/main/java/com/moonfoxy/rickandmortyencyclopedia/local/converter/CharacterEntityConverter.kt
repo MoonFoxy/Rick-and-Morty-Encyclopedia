@@ -6,11 +6,11 @@ import com.google.gson.reflect.TypeToken
 
 class CharacterEntityConverter {
     @TypeConverter
-    fun fromArrayListToJson(value: ArrayList<String>): String = Gson().toJson(value)
+    fun fromListToJson(value: List<String>): String = Gson().toJson(value)
 
     @TypeConverter
-    fun fromJsonToArrayList(value: String): ArrayList<String> {
-        val listType = object : TypeToken<ArrayList<String>>() {}.type
+    fun fromJsonToList(value: String): List<String> {
+        val listType = object : TypeToken<List<String>>() {}.type
         return Gson().fromJson(value, listType)
     }
 }

@@ -10,17 +10,17 @@ import com.moonfoxy.rickandmortyencyclopedia.local.util.LocalConstants
 @Dao
 interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacterList(characters: List<CharacterEntity>)
+    fun insertCharacterList(characters: List<CharacterEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(character: CharacterEntity)
+    fun insertCharacter(character: CharacterEntity)
 
     @Query("SELECT * FROM ${LocalConstants.CHARACTER_TABLE_NAME}")
-    suspend fun getCharacterList(): List<CharacterEntity>
+    fun getCharacterList(): List<CharacterEntity>
 
     @Query("SELECT * FROM ${LocalConstants.CHARACTER_TABLE_NAME} WHERE id = :id")
-    suspend fun getCharacter(id: Int): CharacterEntity
+    fun getCharacter(id: Int): CharacterEntity
 
     @Query("DELETE FROM ${LocalConstants.CHARACTER_TABLE_NAME}")
-    suspend fun deleteAll()
+    fun deleteAll()
 }
