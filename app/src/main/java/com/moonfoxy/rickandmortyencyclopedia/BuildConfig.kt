@@ -6,6 +6,7 @@ internal object BuildConfig {
     const val BUILD_TYPE: String = "beta"
 
     const val BASE_URL: String = "https://rickandmortyapi.com/api/"
+    const val OK_HTTP_TIMEOUT = 60L
 
     /**
      * Set the cache expiration time to 5 minutes
