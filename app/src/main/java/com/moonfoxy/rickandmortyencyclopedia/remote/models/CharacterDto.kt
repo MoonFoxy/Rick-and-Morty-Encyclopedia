@@ -13,7 +13,7 @@ data class CharacterDto(
     @SerializedName("origin") val origin: CharacterOriginDto,
     @SerializedName("location") val location: CharacterLocationDto,
     @SerializedName("image") val image: String,
-    @SerializedName("episode") val episode: ArrayList<String> = arrayListOf(),
+    @SerializedName("episode") val episode: List<String> = emptyList(),
     @SerializedName("url") val url: String,
     @SerializedName("created") val created: String
 )

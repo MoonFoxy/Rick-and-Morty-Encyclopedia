@@ -16,7 +16,7 @@ data class CharacterEntity(
     @Embedded val origin: CharacterOriginEntity,
     @Embedded val location: CharacterLocationEntity,
     val image: String,
-    @Embedded val episode: ArrayList<String> = arrayListOf(),
+    val episode: List<String> = emptyList(),
     val url: String,
     val created: String
 )

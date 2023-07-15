@@ -1,6 +1,6 @@
 package com.moonfoxy.rickandmortyencyclopedia.data.repository
 
-import com.moonfoxy.rickandmortyencyclopedia.BuildConfig.CHARACTERS_IN_PAGE
+import com.moonfoxy.rickandmortyencyclopedia.BuildConfig
 import com.moonfoxy.rickandmortyencyclopedia.data.models.Character
 import com.moonfoxy.rickandmortyencyclopedia.domain.repository.DataRepository
 import com.moonfoxy.rickandmortyencyclopedia.domain.repository.LocalRepository
@@ -17,7 +17,7 @@ class DataRepositoryImpl @Inject constructor(
     private val localRepository: LocalRepository
 ) : DataRepository {
 
-    private suspend fun checkLocalExpired(): Boolean {
+    private fun checkLocalExpired(): Boolean {
         return localRepository.isExpired().also {
             if (it) localRepository.deleteAllCharacterList()
         }
@@ -32,7 +32,7 @@ class DataRepositoryImpl @Inject constructor(
             var characterCount = localRepository.getCharacterCount()
             var nextPage = 1
             while (characterCount < apiInfo.count && nextPage <= apiInfo.pages) {
-                nextPage = characterCount / CHARACTERS_IN_PAGE + 1
+                nextPage = characterCount / BuildConfig.CHARACTERS_IN_PAGE + 1
                 saveCharacterList(remoteRepository.getPageCharacters(nextPage))
                 characterCount = localRepository.getCharacterCount()
             }
@@ -93,5 +93,6 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun saveCharacter(character: Character) {
         localRepository.saveCharacter(character)
+        localRepository.setLastCacheTime(System.currentTimeMillis())
     }
 }
